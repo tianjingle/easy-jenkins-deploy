@@ -1,11 +1,13 @@
 ## easy-jenkins-deploy
 
 ```xml
-easy-jenkins-deploy是为了方便将jenkins发布包发到目标服务器并执行脚本的程序，原因在于jenkins使用ssh连接到window环境需要配置环境太多，比较麻烦。希望使用一种轻巧的部署方式。
+easy-jenkins-deploy是为了方便将jenkins发布包发到目标服务器并执行脚本的程序，
+原因在于jenkins使用ssh连接到window环境需要配置环境太多，比较麻烦。希望使用一种轻巧的部署方式。
 ```
 
 ```xml
-使用easy-jenkins-deploy发包不限于和jenkins进行整合，当然不使用ssh去执行命令具有一定的风险。所以该软件不适合做要求比较严格的项目。
+使用easy-jenkins-deploy发包不限于和jenkins进行整合，
+当然不使用ssh去执行命令具有一定的风险。所以该软件不适合做要求比较严格的项目。
 ```
 
 
