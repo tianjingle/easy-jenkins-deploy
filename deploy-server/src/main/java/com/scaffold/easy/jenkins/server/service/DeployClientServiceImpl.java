@@ -8,6 +8,8 @@ import com.scaffold.easy.jenkins.server.service.deploy.DeployClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.regex.Matcher;
+
 /**
  * @Author: tianjl
  * @Date: 2020/11/9 11:52
@@ -26,19 +28,11 @@ public class DeployClientServiceImpl implements DeployClientService {
      */
     @Override
     public ResponseResult deploy(DeploayTaskRequest request) {
-
         SendPackRo ro=new SendPackRo();
-        ro.setPackName("D:\\github\\cosin\\contact-center\\appserver\\target\\appserver.war");
-        ro.setCommandName("D:\\github\\cosin\\contact-center\\appserver\\execute.bat");
-        ro.setServerUrl("http://127.0.0.1:8082/Jdeploy/upload");
-        ro.setSave(true);
-
-        ro.setPackName("D:\\github\\cosin\\contact-center\\appserver\\target\\appserver.war");
-        ro.setCommandName("D:\\github\\cosin\\contact-center\\appserver\\execute.bat");
-        ro.setServerUrl("http://127.0.0.1:8082/Jdeploy/upload");
-        ro.setSave(true);
+        ro.setPackName(request.getJavafilePath().replaceAll("_", Matcher.quoteReplacement("\\")));
+        ro.setCommandName(request.getCommandPath().replaceAll("_",Matcher.quoteReplacement("\\")));
+        ro.setServerUrl(request.getTargetServer());
+        ro.setSave(request.isSaveOld());
         return sendPackService.upload2Serer(ro);
     }
-
-
 }

@@ -17,6 +17,29 @@ easy-jenkins-deploy是为了方便将jenkins发布包发到目标服务器并执
 
 http request的pipline语法如下：
 ```xml
+pipeline {
+    agent any
+    triggers{
+      GenericTrigger(
+      token:'app-server'
+      )
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+
+                echo '1.start build.....'
+                bat 'mvn clean -Dmaven.test.skip=true package'
+                echo 'end build'
+                bat 'XCOPY *.bat D:\\pipline-test /y \n cd target\n dir \n XCOPY *.war D:\\pipline-test /y'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
         stage('Deploy') {
             steps {
 
@@ -28,14 +51,17 @@ http request的pipline语法如下：
                    def body = [
                        status: "DOWN"
                    ]
-                   这里是客户端的地址，采用get上送部署信息
-                   def unregister_url= "http://localhost:9904/appserver/version/info"
+                   def unregister_url= "http://localhost:8081/task/deploy?javafilePath=D:_pipline-test_execute.bat&commandPath=D:_pipline-test_appserver.war&saveOld=true"
+
                    response = httpRequest consoleLogResponseBody: true, contentType: 'APPLICATION_JSON', httpMode: 'GET', requestBody: toJson(body), url: unregister_url, validResponseCodes: '200'
                    println('Status: '+response.status)
                    println('Response: '+response.content)
                }
             }
         }
+    }
+}
+
 ```
 
 - 2.启动客户端
