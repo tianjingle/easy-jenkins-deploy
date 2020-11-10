@@ -17,6 +17,7 @@ easy-jenkins-deploy是为了方便将jenkins发布包发到目标服务器并执
 
 http request的pipline语法如下：
 ```xml
+
 pipeline {
     agent any
     triggers{
@@ -51,7 +52,7 @@ pipeline {
                    def body = [
                        status: "DOWN"
                    ]
-                   def unregister_url= "http://localhost:8081/task/deploy?javafilePath=D:_pipline-test_execute.bat&commandPath=D:_pipline-test_appserver.war&saveOld=true"
+                   def unregister_url= "http://localhost:8081/task/deploy?commandPath=D:_pipline-test_execute.bat&javafilePath=D:_pipline-test_appserver.war&saveOld=true&targetServer=http://localhost:8082/Jdeploy/upload"
 
                    response = httpRequest consoleLogResponseBody: true, contentType: 'APPLICATION_JSON', httpMode: 'GET', requestBody: toJson(body), url: unregister_url, validResponseCodes: '200'
                    println('Status: '+response.status)
@@ -61,6 +62,7 @@ pipeline {
         }
     }
 }
+
 
 ```
 
