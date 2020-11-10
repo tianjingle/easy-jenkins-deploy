@@ -13,11 +13,10 @@ easy-jenkins-deploy是为了方便将jenkins发布包发到目标服务器并执
 
 ## 与jenkins（http request plugins）的整合
 
-- 1.在jenkins中安装http request组件
+- 1.在jenkins中安装Http Request插件
 
-http request的pipline语法如下：
+* Http Request的pipline语法如下：
 ```xml
-
 pipeline {
     agent any
     triggers{
@@ -25,7 +24,6 @@ pipeline {
       token:'app-server'
       )
     }
-
     stages {
         stage('Build') {
             steps {
@@ -65,15 +63,63 @@ pipeline {
 
 
 ```
+- 在与Jenkinsfile平齐的目录创建execute.sh或者execute.bat，并编写相关脚本。其中必须要有set TARGET_PATH=老项目的地址。示例如下：
+```shell script
+for /f "tokens=1" %%a in ('jps ^| findstr appserver.war') do taskkill /f /pid %%a
+cd JAVA_HOME
+set TARGET_PATH=D:\okms-java\appserver\appserver.war
+set javawpath=%JAVA_HOME%\bin\
+cd %javawpath%
+c:
+start /b javaw -jar -Dserver.port=9309 -Dspring.profiles.active=prod %TARGET_PATH%
+exit
 
-- 2.启动客户端
-```xml
-java -jar client.war
 ```
 
-- 3.启动服务端
 
+
+- 2.启动客户端(部署在目标主机上)
 ```xml
-java -jar server.war
+java -jar -Dserver.port=8082 jclient.war
+
+```
+或者隐藏窗口启动
+```xml
+set path=%~dp0
+set javawpath=%JAVA_HOME%\bin\
+set javaPaht=%javawpath:~0,1%
+cd %javawpath%
+start /b javaw -jar -Dserver.port=8082 %path%jclient.jar
+
 ```
 
+杀死进程
+
+```xml
+for /f "tokens=1" %%a in ('jps ^| findstr jclient.war') do taskkill /f /pid %%a
+
+```
+
+
+- 3.启动服务端（和jenkins部署在相同主机）
+
+
+```xml
+java -jar -Dserver.port=8081 -Dcom.scaffold.easy.jenkins.folder=D:/deploy -Dcom.scaffold.easy.jenkins.repostory=D:/deploy/repository jserver.war
+```
+
+或者隐藏窗口启动
+```xml
+set path=%~dp0
+set javawpath=%JAVA_HOME%\bin\
+set javaPaht=%javawpath:~0,1%
+cd %javawpath%
+start /b javaw -jar -Dserver.port=8081 %path%jserver.jar
+
+```
+
+杀死进程
+```xml
+for /f "tokens=1" %%a in ('jps ^| findstr jserver.war') do taskkill /f /pid %%a
+
+```
