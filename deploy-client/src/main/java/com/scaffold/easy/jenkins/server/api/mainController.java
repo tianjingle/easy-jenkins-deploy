@@ -33,7 +33,7 @@ public class mainController {
 
     @PostMapping(value = "/upload")
     public ResponseResult upload(PackRequest packRequest) throws IOException {
-        String outPut="";
+        StringBuffer outPut=new StringBuffer("");
         String command="";
         File folder=new File(serverConfig.getFolder());
         if (!folder.exists()){
@@ -44,8 +44,14 @@ public class mainController {
         }
         if ("bat".equals(FilenameUtils.getExtension(packRequest.getCommandName()))){
             command= CMDExecuteUtil.parseCommand(serverConfig.getFolder()+"/"+packRequest.getCommandName());
-
-            outPut= CMDExecuteUtil.executeCommand(command,new File(serverConfig.getFolder()+"/"));
+            String[] commands=command.split("_");
+//            for (int i = 0; i < commands.length; i++) {
+//                outPut.append(CMDExecuteUtil.executeCommand(commands[i],new File(serverConfig.getFolder()+"/"))).append("\n");
+//                System.out.println(outPut);
+//            }
+            outPut.append(CMDExecuteUtil.executeCommand("start execute.bat",new File(serverConfig.getFolder()+"/"))).append("\n");
+            outPut.append(CMDExecuteUtil.executeCommand("jps",new File(serverConfig.getFolder()+"/"))).append("\n");
+            System.out.println(outPut);
         }
         return ResponseResult.success(outPut);
     }

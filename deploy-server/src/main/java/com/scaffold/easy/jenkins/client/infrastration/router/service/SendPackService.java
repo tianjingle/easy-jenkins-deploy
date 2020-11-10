@@ -50,8 +50,7 @@ public class SendPackService {
         form.add("commandName",FilenameUtils.getName(ro.getCommandName()));
         //用HttpEntity封装整个请求报文
         HttpEntity<MultiValueMap<String, Object>> entity = new HttpEntity<>(form, headers);
-        String s = restTemplate.postForObject(ro.getServerUrl(), entity, String.class);
-        System.out.println(s);
-        return new ResponseResult();
+        ResponseResult result = restTemplate.postForObject(ro.getServerUrl(), entity, ResponseResult.class);
+        return result;
     }
 }

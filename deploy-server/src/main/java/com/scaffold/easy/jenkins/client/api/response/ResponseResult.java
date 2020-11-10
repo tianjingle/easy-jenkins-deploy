@@ -63,4 +63,43 @@ public class ResponseResult {
         return new ResponseResult(false, msg, content, 0, 0);
     }
 
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
+
+    public Boolean getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(Boolean success) {
+        this.success = success;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Object getContent() {
+        return content;
+    }
+
+    public void setContent(Object content) {
+        this.content = content;
+    }
 }

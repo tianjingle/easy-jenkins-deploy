@@ -102,4 +102,12 @@ public class ResponseResult {
     public void setContent(Object content) {
         this.content = content;
     }
+
+    public ResponseResult(Integer count, Integer total, Boolean success, String message, Object content) {
+        this.count = count;
+        this.total = total;
+        this.success = success;
+        this.message = message;
+        this.content = content;
+    }
 }
