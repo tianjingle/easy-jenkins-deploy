@@ -1,10 +1,10 @@
-package com.scaffold.easy.jenkins.client.service;
+package com.scaffold.easy.jenkins.server.service;
 
-import com.scaffold.easy.jenkins.client.api.request.DeploayTaskRequest;
-import com.scaffold.easy.jenkins.client.api.response.ResponseResult;
-import com.scaffold.easy.jenkins.client.infrastration.router.ro.SendPackRo;
-import com.scaffold.easy.jenkins.client.infrastration.router.service.SendPackService;
-import com.scaffold.easy.jenkins.client.service.deploy.DeployClientService;
+import com.scaffold.easy.jenkins.server.api.request.DeploayTaskRequest;
+import com.scaffold.easy.jenkins.server.api.response.ResponseResult;
+import com.scaffold.easy.jenkins.server.infrastration.router.ro.SendPackRo;
+import com.scaffold.easy.jenkins.server.infrastration.router.service.SendPackService;
+import com.scaffold.easy.jenkins.server.service.deploy.DeployClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

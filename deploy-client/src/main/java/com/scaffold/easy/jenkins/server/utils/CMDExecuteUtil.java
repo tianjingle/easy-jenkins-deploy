@@ -1,7 +1,5 @@
 package com.scaffold.easy.jenkins.server.utils;
 
-import org.apache.logging.log4j.util.Strings;
-
 import java.io.*;
 import java.util.Iterator;
 import java.util.Map;
@@ -12,7 +10,6 @@ public class CMDExecuteUtil {
         // TODO Auto-generated method stub
         //根据运行环境判断运行命令
         String osName=System.getProperty("os.name");
-//        System.out.println(osName);
         String []command={"","",cmd};
         if(osName.contains("Windows")){
             command[0]="cmd.exe";
@@ -28,7 +25,6 @@ public class CMDExecuteUtil {
                 cmd.replaceAll(key,map.get(key));
             }
         }
-        System.out.println(cmd);
         StringBuffer output=new StringBuffer();
         Process p;
         InputStreamReader inputStreamReader=null;

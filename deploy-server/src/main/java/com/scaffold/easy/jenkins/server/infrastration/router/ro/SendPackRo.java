@@ -1,4 +1,4 @@
-package com.scaffold.easy.jenkins.client.infrastration.router.ro;
+package com.scaffold.easy.jenkins.server.infrastration.router.ro;
 
 
 

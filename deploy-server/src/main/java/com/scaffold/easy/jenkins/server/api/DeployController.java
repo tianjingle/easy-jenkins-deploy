@@ -1,8 +1,8 @@
-package com.scaffold.easy.jenkins.client.api;
+package com.scaffold.easy.jenkins.server.api;
 
-import com.scaffold.easy.jenkins.client.api.request.DeploayTaskRequest;
-import com.scaffold.easy.jenkins.client.api.response.ResponseResult;
-import com.scaffold.easy.jenkins.client.service.deploy.DeployClientService;
+import com.scaffold.easy.jenkins.server.api.request.DeploayTaskRequest;
+import com.scaffold.easy.jenkins.server.api.response.ResponseResult;
+import com.scaffold.easy.jenkins.server.service.deploy.DeployClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;

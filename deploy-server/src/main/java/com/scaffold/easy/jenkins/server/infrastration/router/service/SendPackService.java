@@ -1,23 +1,17 @@
-package com.scaffold.easy.jenkins.client.infrastration.router.service;
+package com.scaffold.easy.jenkins.server.infrastration.router.service;
 
-import ch.qos.logback.core.util.FileUtil;
-import com.scaffold.easy.jenkins.client.api.response.ResponseResult;
-import com.scaffold.easy.jenkins.client.infrastration.router.ro.SendPackRo;
+import com.scaffold.easy.jenkins.server.api.response.ResponseResult;
+import com.scaffold.easy.jenkins.server.infrastration.router.ro.SendPackRo;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @Author: tianjl

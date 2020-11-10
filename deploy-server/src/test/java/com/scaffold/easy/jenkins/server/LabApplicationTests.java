@@ -1,7 +1,7 @@
-package com.scaffold.easy.jenkins.client;
+package com.scaffold.easy.jenkins.server;
 
-import com.scaffold.easy.jenkins.client.infrastration.router.ro.SendPackRo;
-import com.scaffold.easy.jenkins.client.infrastration.router.service.SendPackService;
+import com.scaffold.easy.jenkins.server.infrastration.router.ro.SendPackRo;
+import com.scaffold.easy.jenkins.server.infrastration.router.service.SendPackService;
 import com.sun.glass.ui.Application;
 import org.junit.Test;
 import org.junit.runner.RunWith;

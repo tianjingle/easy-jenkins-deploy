@@ -1,4 +1,4 @@
-package com.scaffold.easy.jenkins.client.api.response;
+package com.scaffold.easy.jenkins.server.api.response;
 
 
 

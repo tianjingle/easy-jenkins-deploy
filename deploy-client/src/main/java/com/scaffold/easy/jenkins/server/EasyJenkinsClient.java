@@ -9,9 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Eamil: 2695062879@qq.com
  */
 @SpringBootApplication
-public class EasyJenkinsServer {
+public class EasyJenkinsClient {
 
     public static void main(String[] args) {
-        SpringApplication.run(EasyJenkinsServer.class,args);
+        SpringApplication.run(EasyJenkinsClient.class,args);
     }
 }
