@@ -71,7 +71,10 @@ public class mainController {
                     SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
                     System.out.println(f.format(now));
                     if (packRequest.isSave()) {
-                        FileUtils.copyFile(new File(replaceFilePath), new File(repostoryPath + FilenameUtils.getBaseName(packRequest.getPackName()) + f.format(now) + "." + FilenameUtils.getExtension(packRequest.getPackName())));
+                        File oldFile = new File(replaceFilePath);
+                        if (oldFile.exists()) {
+                            FileUtils.copyFile(oldFile, new File(repostoryPath + FilenameUtils.getBaseName(packRequest.getPackName()) + f.format(now) + "." + FilenameUtils.getExtension(packRequest.getPackName())));
+                        }
                     }
                 }else{
                     throw new Exception("没有目标文佳");
