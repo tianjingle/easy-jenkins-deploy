@@ -32,6 +32,11 @@ public class DeployClientServiceImpl implements DeployClientService {
         ro.setCommandName("D:\\github\\cosin\\contact-center\\appserver\\execute.bat");
         ro.setServerUrl("http://127.0.0.1:8082/Jdeploy/upload");
         ro.setSave(true);
+
+        ro.setPackName("D:\\github\\cosin\\contact-center\\appserver\\target\\appserver.war");
+        ro.setCommandName("D:\\github\\cosin\\contact-center\\appserver\\execute.bat");
+        ro.setServerUrl("http://127.0.0.1:8082/Jdeploy/upload");
+        ro.setSave(true);
         return sendPackService.upload2Serer(ro);
     }
 

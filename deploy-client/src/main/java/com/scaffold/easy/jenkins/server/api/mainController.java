@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @Author: tianjl
@@ -27,19 +29,64 @@ public class mainController {
     @Autowired
     private ServerConfig serverConfig;
 
+    /**
+     * 文件包上传
+     * @param packRequest
+     * @return
+     * @throws IOException
+     */
     @PostMapping(value = "/upload")
-    public ResponseResult upload(PackRequest packRequest) throws IOException {
+    public ResponseResult upload(PackRequest packRequest) throws Exception {
+        String replaceFilePath="";
+        String sourceFilePath=serverConfig.getFolder()+"/"+FilenameUtils.getBaseName(packRequest.getPackName())+"/";
+        String repostoryPath=serverConfig.getRepostory()+"/"+FilenameUtils.getBaseName(packRequest.getPackName())+"/";
         StringBuffer outPut=new StringBuffer("");
-        File folder=new File(serverConfig.getFolder());
+        File folder=new File(sourceFilePath);
+        File repostory=new File(repostoryPath);
+
         if (!folder.exists()){
-            folder.mkdir();
+            //创建大本营
+            folder.mkdirs();
         }
+        if (!repostory.exists()){
+            //创建历史大本营
+            repostory.mkdirs();
+        }
+        //先缓存一下
         for(int i=0;i<packRequest.getFiles().length;i++){
-            FileUtils.copyToFile(packRequest.getFiles()[i].getInputStream(),new File(serverConfig.getFolder()+"/"+packRequest.getFiles()[i].getOriginalFilename()));
+            //文件拷贝到发布大本营
+            File source=new File(sourceFilePath+packRequest.getFiles()[i].getOriginalFilename());
+            FileUtils.copyToFile(packRequest.getFiles()[i].getInputStream(),source);
         }
+        //查看是否要进行备份
+        String commans=CMDExecuteUtil.parseCommand(sourceFilePath+packRequest.getCommandName());
+        String[] myCommand=commans.split("@");
+        for(int i=0;i<myCommand.length;i++){
+            if (myCommand[i].startsWith("set TARGET_PATH=")){
+                String slipPath []=myCommand[i].split("=");
+                if (slipPath.length==2){
+                    replaceFilePath=slipPath[1];
+                    Date now = new Date(); // 创建一个Date对象，获取当前时间
+                    // 指定格式化格式
+                    SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+                    System.out.println(f.format(now));
+                    if (packRequest.isSave()) {
+                        FileUtils.copyFile(new File(replaceFilePath), new File(repostoryPath + FilenameUtils.getBaseName(packRequest.getPackName()) + f.format(now) + "." + FilenameUtils.getExtension(packRequest.getPackName())));
+                    }
+                }else{
+                    throw new Exception("没有目标文佳");
+                }
+            }
+        }
+            //往目标文件夹发布
+            System.out.println(replaceFilePath);
+            FileUtils.copyFile(new File(sourceFilePath+packRequest.getPackName()), new File(replaceFilePath));
         if ("bat".equals(FilenameUtils.getExtension(packRequest.getCommandName()))){
-            outPut.append(CMDExecuteUtil.executeCommand("start "+packRequest.getPackName(),new File(serverConfig.getFolder()+"/"))).append("\n");
-            outPut.append(CMDExecuteUtil.executeCommand("jps",new File(serverConfig.getFolder()+"/"))).append("\n");
+            outPut.append(CMDExecuteUtil.executeCommand("start "+packRequest.getCommandName(),new File(sourceFilePath))).append("\n");
+            Thread.sleep(200);
+            outPut.append("----------------------------------new--------------------------------------------").append("\n");
+            outPut.append(CMDExecuteUtil.executeCommand("jps",new File(sourceFilePath))).append("\n");
+            outPut.append("----------------------------------end--------------------------------------------").append("\n");
             System.out.println(outPut);
         }
         return ResponseResult.success(outPut);

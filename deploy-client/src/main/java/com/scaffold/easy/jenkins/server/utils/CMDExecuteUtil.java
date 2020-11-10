@@ -68,7 +68,7 @@ public class CMDExecuteUtil {
             String line=null;
             while((line=br.readLine())!=null) {
                 System.out.println(line);
-                stringBuffer.append(line).append("_");
+                stringBuffer.append(line).append("@");
             }
             br.close();
         } catch (IOException e) {
