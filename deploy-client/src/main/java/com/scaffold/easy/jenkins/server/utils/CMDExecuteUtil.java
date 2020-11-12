@@ -1,8 +1,7 @@
 package com.scaffold.easy.jenkins.server.utils;
 
 import java.io.*;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class CMDExecuteUtil {
 
@@ -19,18 +18,21 @@ public class CMDExecuteUtil {
             command[1]="-c";
         }
         Map<String, String> map = System.getenv();
+        String[] evn=new String[100];
+        int i=0;
         for(Iterator<String> itr = map.keySet().iterator(); itr.hasNext();){
             String key = itr.next();
             if (key.equals(cmd)){
                 cmd.replaceAll(key,map.get(key));
             }
+            evn[i++]=key+"="+map.get(key);
         }
         StringBuffer output=new StringBuffer();
         Process p;
         InputStreamReader inputStreamReader=null;
         BufferedReader reader=null;
         try{
-            p=Runtime.getRuntime().exec(command,null,file);
+            p=Runtime.getRuntime().exec(command,evn,file);
             Thread t=new Thread(new InputStreamRunnable(p.getErrorStream()));
             t.start();
             if (!cmd.startsWith("start ")) {
