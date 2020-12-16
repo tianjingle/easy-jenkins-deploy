@@ -9,6 +9,8 @@ public class CMDExecuteUtil {
         // TODO Auto-generated method stub
         //根据运行环境判断运行命令
         String osName=System.getProperty("os.name");
+        System.out.println(osName);
+        System.out.println(cmd);
         String []command={"","",cmd};
         if(osName.contains("Windows")){
             command[0]="cmd.exe";
@@ -32,7 +34,9 @@ public class CMDExecuteUtil {
         InputStreamReader inputStreamReader=null;
         BufferedReader reader=null;
         try{
-            p=Runtime.getRuntime().exec(command,evn,file);
+            System.out.println(command);
+            System.out.println(evn);
+            p=Runtime.getRuntime().exec(command,null,file);
             Thread t=new Thread(new InputStreamRunnable(p.getErrorStream()));
             t.start();
             if (!cmd.startsWith("start ")) {
