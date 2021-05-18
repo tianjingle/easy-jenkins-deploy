@@ -102,4 +102,15 @@ public class ResponseResult {
     public void setContent(Object content) {
         this.content = content;
     }
+
+    @Override
+    public String toString() {
+        return "ResponseResult{" +
+                "count=" + count +
+                ", total=" + total +
+                ", success=" + success +
+                ", message='" + message + '\'' +
+                ", content=" + content +
+                '}';
+    }
 }
