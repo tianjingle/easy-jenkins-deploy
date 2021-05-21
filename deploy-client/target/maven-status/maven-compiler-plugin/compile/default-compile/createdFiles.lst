@@ -1,0 +1,9 @@
+com\scaffold\easy\jenkins\server\api\response\ResponseResult.class
+com\scaffold\easy\jenkins\server\service\DeployServiceImpl.class
+com\scaffold\easy\jenkins\server\EasyJenkinsClient.class
+com\scaffold\easy\jenkins\server\service\deploy\DeployService.class
+com\scaffold\easy\jenkins\server\utils\InputStreamRunnable.class
+com\scaffold\easy\jenkins\server\conf\ServerConfig.class
+com\scaffold\easy\jenkins\server\api\request\PackRequest.class
+com\scaffold\easy\jenkins\server\utils\CMDExecuteUtil.class
+com\scaffold\easy\jenkins\server\api\mainController.class
